@@ -19,12 +19,17 @@ terms contained in the LICENSE file.
 
 :- use_module(library('dcg/basics')).
 
-% Extracting information from the barcode.
+%! extract_barcode(ExtractType, Type, Content, Extracted) is det
+%
+% Extract the information relevant for a barcode of type
+% _ExtractType_ from the barcode of type _Type_ with content
+% _Content_. Result is a compound term named after the extracted
+% information.
 extract_barcode(participant, Type, [TSS,P|_], participant(TSS,P)) :-
     Type \== tss.
 
 % Barcode DCG
-% ===========
+% -----------
 %
 % This DCG attempts to parse a string representing a valid TCGA
 % barcode as defined here:
@@ -175,7 +180,7 @@ alphanumeric_string([C|T]) -->
 alphanumeric_string([]) --> [].
 
 % UNIT TESTS
-% ==========
+% ----------
 %
 % Test compliance of the barcode DCG to the somewhat informal
 % specification provided at
@@ -190,6 +195,7 @@ alphanumeric_string([]) --> [].
 %
 % Helper predicates for unit tests
 % --------------------------------
+%
 tissue_source_site_outside_domain([F,S]) :-
     code([digit,upper], F),
     code([digit,upper], S),
@@ -253,6 +259,7 @@ not_code_(Type, Codes, NotCodes) :- !,
 
 % Tests for TCGA-Barcode DCG
 % --------------------------
+%
 :- begin_tests(barcode_tests, [setup(tcga_data:load_data)]).
 
 test(tcga_only_code_fail, 

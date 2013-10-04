@@ -64,10 +64,11 @@ tcga_brca_ge_file(
 
 load_data :-
     format('loading TCGA code tables '), flush_output,
-    time( load_tcga_code_tables ),
+    load_tcga_code_tables,
     format(' done~n'), flush_output,
-    format('loading BRCA gene expression data '), flush_output,
-    time( load_tcga_brca_ge_file ),
+    format('loading BRCA gene expression data~n'),
+    format('(please be patient) ', flush_output,
+    load_tcga_brca_ge_file,
     format(' done~n'), flush_output.
 
 % Code Tables read and load
