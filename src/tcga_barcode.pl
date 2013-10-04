@@ -1,4 +1,6 @@
 /*
+Copyright (c) 2013 Boris Vassilev, University of Helsinki
+
 This file is part of "endo" Project. It is subject to the license
 terms in the LICENSE file found in the top-level directory of
 this distribution and at http://opensource.org/licenses/MIT. No
@@ -16,10 +18,6 @@ terms contained in the LICENSE file.
     ]).
 
 :- use_module(library('dcg/basics')).
-
-load :-
-    consult(tcga_barcode),
-    consult(tcga_data).
 
 % Extracting information from the barcode.
 extract_barcode(participant, Type, [TSS,P|_], participant(TSS,P)) :-
@@ -255,7 +253,7 @@ not_code_(Type, Codes, NotCodes) :- !,
 
 % Tests for TCGA-Barcode DCG
 % --------------------------
-:- begin_tests(barcode, [setup(tcga_data:load_data)]).
+:- begin_tests(barcode_tests, [setup(tcga_data:load_data)]).
 
 test(tcga_only_code_fail, 
     [   fail
@@ -437,5 +435,5 @@ test(center_fail,
     append("TCGA-02-0001-01C-01D-0182-", Center, Barcode),
     phrase( barcode(_T, _C), Barcode ).
 
-:- end_tests(barcode).
+:- end_tests(barcode_tests).
 
