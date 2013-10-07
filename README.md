@@ -31,12 +31,9 @@ Installation of the software is not necessary. Start the
 SWI-Prolog top-level interpreter in the top-level directory of
 the project and consult the load.pl file:
 
-[source]
-----
-$ cd endo
-$ swipl
-?- [load].
-----
+    $ cd endo
+    $ swipl
+    ?- [load].
 
 The tools provided by this software are documented extensively in
 the comments in each source code file. Attempting to use the

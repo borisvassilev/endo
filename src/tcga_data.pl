@@ -67,7 +67,7 @@ load_data :-
     load_tcga_code_tables,
     format(' done~n'), flush_output,
     format('loading BRCA gene expression data~n'),
-    format('(please be patient) ', flush_output,
+    format('(please be patient) '), flush_output,
     load_tcga_brca_ge_file,
     format(' done~n'), flush_output.
 
@@ -243,11 +243,12 @@ samples([]) -->
 
 % Each expression values line starts with a gene name _Gene_ and
 % a list of expression values _Expr_.
-expr_line(Gene, Expr) -->
-    string_upto_char(0'\t, S),
+expr_line(GeneID, Expr) -->
+    "ENSG",
+    digits(Digits), % Ensembl stable ID
     exprs(E),
-    {   atom_codes(Gene, S),
-        Expr =.. [expr|E]
+    {   atom_codes(GeneID, [0'E,0'N,0'S,0'G|Digits]),
+        Expr =.. [ge|E]
     }.
 
 % When the expression value is missing, there is an "NA" in the
